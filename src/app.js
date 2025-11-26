@@ -1,20 +1,28 @@
 const express = require("express");
+const { verifyuser } = require("./middelwear/verify");
 
 const app = express();
 
-app.use("/user", (req, res, next) => {
-  const token = 123;
-  const verifytoken = token === 123;
-  if (verifytoken) {
-    next();
-  } else {
-    console.log("error");
-    return res.status(401).send("something went wronng");
-  }
-});
+app.use("/user", verifyuser);
+
+// app.use("/user", (req, res, next) => {
+//   const token = 123;
+//   const verifytoken = token === 123;
+//   if (verifytoken) {
+//     next();
+//     // res.status(401).send("bad request");
+//   } else {
+//     console.log("error");
+//     return res.status(401).send("something went wronng");
+//   }
+// });
 
 app.get("/user/getalldata", (req, res) => {
   res.send("sent all the data");
+});
+
+app.get("/user/deleteuser", (req, res) => {
+  res.send("deleted all the data");
 });
 
 app.get(
